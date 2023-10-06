@@ -124,25 +124,6 @@ async def get_event_by_id(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail=str(e))
 
 
-# @router.post("/participate/{id}")
-# async def participate_in_event(id:int,user: dict = Depends(get_current_user),
-#                                db: Session = Depends(get_db)):
-#     try:
-#         event = db.query(Event).filter(Event.id == id).first()
-#
-#         if event is None:
-#             raise HTTPException(status_code=404, detail="no events found")
-#         participation = db.query(Participant.pt_event_id==id,
-#                                  Participant.pt_id==user.get(id)).first()
-#         db.add(participation)
-#         db.commit()
-#
-#         event.no_of_participants += 1
-#
-#         return {"message": "You have successfully participated in this event", "status": status.HTTP_200_OK}
-#     except Exception as e:
-#         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail=str(e))
-#
 @router.post("/participate/{id}")
 async def participate_in_event(id: int,user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
     # try:
