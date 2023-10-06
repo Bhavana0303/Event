@@ -1,0 +1,9 @@
+Events organising product(Host or Participate)
+Ex: 
+Event name
+Event time(Duration)
+Event place(Online or Offline)
+Price(Free or 500/- For participants)
+Event outcome 
+Event Description
+Attachments(Approval required)
