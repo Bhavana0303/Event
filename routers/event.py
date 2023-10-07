@@ -86,13 +86,13 @@ async def create_event(
 
         product_folder_path = os.path.join(UPLOAD_FOLDER, str(event_model.id))
         os.makedirs(product_folder_path, exist_ok=True)
-        saved_image_paths = []
+        saved_attachment_paths = []
 
         for attachment in attachment_files:
             attachment_path = os.path.join(product_folder_path, attachment.filename)
             with open(attachment_path, "wb") as attachment_file:
                 attachment_file.write(attachment.file.read())
-            saved_image_paths.append(attachment_path)
+            saved_attachment_paths.append(attachment_path)
         event_model.attachments = product_folder_path  # storing the path
         db.commit()
         send_request(db,event_model.id)
