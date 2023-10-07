@@ -33,6 +33,7 @@ class CreateEvent(BaseModel):
     duration:str
     event_place:str
     price:int
+    event_date:str
     event_outcome:str
     event_description:str
     attachments:str
@@ -57,6 +58,7 @@ async def create_event(
         duration: str = Form(...),
         event_place: str = Form(...),
         price: int = Form(...),
+        event_date:str=Form(...),
         event_outcome: str = Form(...),
         event_description: str = Form(...),
         attachments: str = Form(...),
@@ -73,6 +75,7 @@ async def create_event(
         event_model.duration=duration
         event_model.event_place=event_place
         event_model.price = price
+        event_model.event_date=event_date
         event_model.event_outcome = event_outcome
         event_model.event_description = event_description
         event_model.attachments= attachments
@@ -158,4 +161,28 @@ async def participate_in_event(id: int,user: dict = Depends(get_current_user), d
     #     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
     #
 
+
+@router.get("/hosted_events")
+async def get_hosted_events(user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
+    try:
+        hosted_events = db.query(models.Event).filter(models.Event.event_owner_id == user.get("user_id")).all()
+        return {"message": "Hosted events retrieved successfully", "data": hosted_events}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# Endpoint to get participated events by a participant
+
+
+@router.get("/participated_events")
+async def get_participated_events(user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
+    try:
+        participated_events = (
+            db.query(models.Event)
+            .join(models.Participant, models.Participant.pt_event_id == models.Event.id)
+            .filter(models.Participant.pt_id == user.get("user_id"))
+            .all()
+        )
+        return {"message": "Participated events retrieved successfully", "data": participated_events}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
