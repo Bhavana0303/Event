@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from database import SessionLocal,engine
 import os
 import models
-
+import uvicorn
 
 def get_db():
     try:
