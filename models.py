@@ -30,6 +30,7 @@ class Event(Base):
     duration = Column(String)
     event_place = Column(String)
     price = Column(Integer)
+    event_date=Column(String)
     event_outcome = Column(String)
     event_description = Column(String)
     attachments = Column(String)
