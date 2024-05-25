@@ -1,8 +1,15 @@
+from urllib.parse import quote
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:bhavana12@localhost:1234/events'
+POSTGRES_DB_PSWD = 'maang@123'
+encoded_password = quote(POSTGRES_DB_PSWD, safe='')
+POSTGRES_DB_URL = 'postgres_db_url'
+POSTGRES_DB_USERNAME = 'postgres_db_username'
+POSTGRES_DB_NAME = 'postgres_db_name'
+
+SQLALCHEMY_DATABASE_URL = f'postgresql://maang:{encoded_password}@178.16.139.18:5432/clients_sge_staging'
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
