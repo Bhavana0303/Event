@@ -9,7 +9,7 @@ POSTGRES_DB_URL = 'postgres_db_url'
 POSTGRES_DB_USERNAME = 'postgres_db_username'
 POSTGRES_DB_NAME = 'postgres_db_name'
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://maang:{encoded_password}@178.16.139.18:5432/clients_sge_staging'
+SQLALCHEMY_DATABASE_URL = f'postgresql://maang:{encoded_password}@178.16.139.18:5432/event_management'
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
